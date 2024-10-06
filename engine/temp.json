@@ -1,0 +1,93 @@
+{
+  "orderbooks": [
+    {
+      "baseAsset": "SOL",
+      "bids": [
+        {
+          "price": 134,
+          "quantity": 5,
+          "orderId": "8vnl73m6nif7dog9ao1nn",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        }
+      ],
+      "asks": [
+        {
+          "price": 146,
+          "quantity": 2,
+          "orderId": "lo2tt50406p0a3yfo8f6",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 148,
+          "quantity": 2,
+          "orderId": "n5wa8qk6heuj3a4rp7znp",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 143.87,
+          "quantity": 5,
+          "orderId": "3ntuqin4vw3yqyqhahsqri",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 138,
+          "quantity": 5,
+          "orderId": "9vz8u9nf2ge6pmmzfbqujm",
+          "filled": 0,
+          "side": "sell",
+          "userId": "1"
+        },
+        {
+          "price": 138,
+          "quantity": 5,
+          "orderId": "ittfc1ypvvq9drauzd583w",
+          "filled": 3,
+          "side": "sell",
+          "userId": "2"
+        }
+      ],
+      "lastTradeId": 7,
+      "currentPrice": 137
+    }
+  ],
+  "balances": [
+    [
+      "1",
+      {
+        "USDC": { "available": 9999315, "locked": -688 },
+        "BTC": { "available": 10000000, "locked": 0 },
+        "SOL": { "available": 10000010, "locked": 0 },
+        "ETH": { "available": 10000000, "locked": 0 },
+        "UNI": { "available": 10000000, "locked": 0 }
+      }
+    ],
+    [
+      "2",
+      {
+        "USDC": { "available": 10001373, "locked": 0 },
+        "BTC": { "available": 10000000, "locked": 0 },
+        "SOL": { "available": 9999987, "locked": 3 },
+        "ETH": { "available": 10000000, "locked": 0 },
+        "UNI": { "available": 10000000, "locked": 0 }
+      }
+    ],
+    [
+      "5",
+      {
+        "USDC": { "available": 10000000, "locked": 0 },
+        "BTC": { "available": 10000000, "locked": 0 },
+        "SOL": { "available": 10000000, "locked": 0 },
+        "ETH": { "available": 10000000, "locked": 0 },
+        "UNI": { "available": 10000000, "locked": 0 }
+      }
+    ]
+  ]
+}
