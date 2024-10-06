@@ -5,19 +5,19 @@ import { redisClient } from ".";
 const market = ["BTC_USDC", "SOL_USDC", "ETH_USDC", "UNI_USDC", "LINK_USDC", "HNT_USDC"]
 
 async function initializeDB(market: string){
-    // await pgClient.query(`
+    await pgClient.query(`
     
-    //     DROP TABLE IF EXISTS ${market.split('_')[0]}_prices;
-    //     CREATE TABLE ${market.split('_')[0]}_prices(
-    //         time  TIMESTAMP WITH TIME ZONE NOT NULL,
-    //         price DOUBLE PRECISION,
-    //         volume DOUBLE PRECISION,
-    //         currency_code VARCHAR(10)
-    //     );
+        DROP TABLE IF EXISTS ${market.split('_')[0]}_prices;
+        CREATE TABLE ${market.split('_')[0]}_prices(
+            time  TIMESTAMP WITH TIME ZONE NOT NULL,
+            price DOUBLE PRECISION,
+            volume DOUBLE PRECISION,
+            currency_code VARCHAR(10)
+        );
 
-    //     SELECT create_hypertable('${market.split('_')[0]}_prices', 'time', 'price', 2);
+        SELECT create_hypertable('${market.split('_')[0]}_prices', 'time', 'price', 2);
         
-    // `)
+    `)
 
     await pgClient.query(`
         CREATE MATERIALIZED VIEW IF NOT EXISTS ${market}_kline_1m AS 
@@ -60,21 +60,21 @@ async function initializeDB(market: string){
         FROM ${market.split('_')[0]}_prices
         GROUP BY bucket, currency_code;
     `)
-    //  await pgClient.query(`
+     await pgClient.query(`
     
-    //     DROP TABLE IF EXISTS ${market.split('_')[0]}_orders;
-    //     CREATE TABLE ${market.split('_')[0]}_orders(
-    //         time  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    //         order_id VARCHAR(255) NOT NULL,
-    //         executed_qty DOUBLE PRECISION,
-    //         price DOUBLE PRECISION,
-    //         quantity DOUBLE PRECISION,
-    //         side VARCHAR(10)
-    //     );
+        DROP TABLE IF EXISTS ${market.split('_')[0]}_orders;
+        CREATE TABLE ${market.split('_')[0]}_orders(
+            time  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+            order_id VARCHAR(255) NOT NULL,
+            executed_qty DOUBLE PRECISION,
+            price DOUBLE PRECISION,
+            quantity DOUBLE PRECISION,
+            side VARCHAR(10)
+        );
 
         
         
-    // `)
+    `)
 
 
     console.log("Database initilised successfully")

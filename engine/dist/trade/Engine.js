@@ -19,6 +19,9 @@ class Engine {
             if (process.env.WITH_SNAPSHOT) {
                 snapshot = fs_1.default.readFileSync('./snapshot.json');
             }
+            else {
+                fs_1.default.writeFileSync('./snapshot.json', JSON.stringify({ orderbooks: [], balances: [] }));
+            }
         }
         catch (e) {
             console.log("No snapshot found");

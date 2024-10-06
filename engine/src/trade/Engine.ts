@@ -22,6 +22,8 @@ export class Engine {
         try {
             if(process.env.WITH_SNAPSHOT){
                 snapshot = fs.readFileSync('./snapshot.json')
+            } else {
+                fs.writeFileSync('./snapshot.json', JSON.stringify({orderbooks: [], balances: []}))
             }
         } catch(e){
             console.log("No snapshot found")
@@ -248,8 +250,6 @@ export class Engine {
         this.createDbTrades(fills, market, userId, Number(price))
         this.publishWsTrades(fills, userId, market, Number(price))
         return {executedQty, fills, orderId: order.orderId}
-
-       
     }   
 
     addOrderBook(orderbook: Orderbook){
