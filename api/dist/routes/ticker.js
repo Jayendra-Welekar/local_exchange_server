@@ -26,13 +26,13 @@ exports.tickerRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
      SUM(volume) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "volume",
      SUM(volume * price) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "quoteVolume",
      COUNT(*) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "trades",
-     '${market === null || market === void 0 ? void 0 : market.split("_")[0]}_prices' AS "symbol"
+     '${market === null || market === void 0 ? void 0 : market.split("_")[0]}_USDC' AS "symbol"
  FROM
      ${market === null || market === void 0 ? void 0 : market.split("_")[0]}_prices
  WHERE
      time >= NOW() - INTERVAL '24 hours';`;
         const response = yield __1.pgClient.query(query);
-        res.json({ response: response.rows[0] });
+        res.json({ data: response.rows[0] });
     }
     catch (error) {
         console.log(error);

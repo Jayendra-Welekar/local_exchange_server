@@ -38,7 +38,12 @@ function main() {
                     const buyerMaker = data.data.isBuyerMaker;
                     const query = `INSERT INTO ${data.data.market.split('_')[0]}_prices (time, price, volume, isBuyerMaker) VALUES ($1, $2, $3, $4)`;
                     const values = [timestamp, price, volume, buyerMaker];
-                    yield exports.pgClient.query(query, values);
+                    try {
+                        yield exports.pgClient.query(query, values);
+                    }
+                    catch (error) {
+                        console.log("error: ", error);
+                    }
                 }
                 else if (data.type === "ORDER_ADD") {
                     const orderId = data.data.orderId;
@@ -49,8 +54,12 @@ function main() {
                     const side = data.data.side || null;
                     const query = `INSERT INTO ${(market === null || market === void 0 ? void 0 : market.split('_')[0].toLowerCase()) || "sol"}_orders (order_id, executed_qty, price, quantity, side) VALUES ($1, $2, $3, $4, $5)`;
                     const values = [orderId, executedQty, price, quantity, side];
-                    console.log("values", values);
-                    yield exports.pgClient.query(query, values);
+                    try {
+                        yield exports.pgClient.query(query, values);
+                    }
+                    catch (error) {
+                        console.log("error: ", error);
+                    }
                 }
                 else {
                     const orderId = data.data.orderId;
@@ -58,8 +67,12 @@ function main() {
                     const market = data.data.market;
                     const query = `UPDATE ${market === null || market === void 0 ? void 0 : market.split('_')[0].toLocaleLowerCase()}_orders SET executed_qty = $1 WHERE order_id = $2`;
                     const values = [executedQty, orderId];
-                    console.log("smallvalue", values);
-                    yield exports.pgClient.query(query, values);
+                    try {
+                        yield exports.pgClient.query(query, values);
+                    }
+                    catch (error) {
+                        console.log("error: ", error);
+                    }
                 }
             }
         }

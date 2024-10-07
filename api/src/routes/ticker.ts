@@ -17,7 +17,7 @@ tickerRouter.get('/', async (req, res)=>{
      SUM(volume) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "volume",
      SUM(volume * price) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "quoteVolume",
      COUNT(*) FILTER (WHERE time >= NOW() - INTERVAL '24 hours') AS "trades",
-     '${market?.split("_")[0]}_prices' AS "symbol"
+     '${market?.split("_")[0]}_USDC' AS "symbol"
  FROM
      ${market?.split("_")[0]}_prices
  WHERE
@@ -25,7 +25,7 @@ tickerRouter.get('/', async (req, res)=>{
  
      const response = await pgClient.query(query)
  
-     res.json({response: response.rows[0]})
+     res.json({data: response.rows[0]})
    } catch (error) {
     console.log(error)
     res.status(500).json({response: "Internal Server Error"})

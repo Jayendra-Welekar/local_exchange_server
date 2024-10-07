@@ -26,7 +26,7 @@ exports.depthRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.json(response.payload);
     }
     catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }));

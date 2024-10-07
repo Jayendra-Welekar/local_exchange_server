@@ -17,7 +17,7 @@ depthRouter.get('/', async (req, res)=>{
     
         res.json(response.payload)
     } catch (error) {
-        console.error(error)
+        console.log(error)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })

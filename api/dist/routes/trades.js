@@ -15,7 +15,26 @@ const __1 = require("..");
 exports.tradeRouter = (0, express_1.Router)();
 exports.tradeRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { symbol: market } = req.query;
-    const query = `SELECT * FROM ${market.split('_')[0]}_prices ORDER BY time DESC LIMIT 100`;
-    const result = yield __1.pgClient.query(query);
-    res.json({ data: result.rows });
+    console.log("Requested market: ", market);
+    try {
+        const query = `SELECT 
+        isbuyermaker AS isBuyerMaker,
+        price,
+        volume AS quantity,
+        volume AS quoteQuantity,
+        time as timestamp
+        FROM ${market.split('_')[0]}_prices ORDER BY time DESC LIMIT 100`;
+        const result = yield __1.pgClient.query(query);
+        console.log(result.rows[0]);
+        // "id": number,
+        // "isBuyerMaker": boolean,
+        // "price": string,
+        // "quantity": string,
+        // "quoteQuantity": string,
+        // "timestamp": number
+        res.json({ data: result.rows });
+    }
+    catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 }));
