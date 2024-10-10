@@ -17,6 +17,7 @@ class RedisManager {
         this.client.lPush("db_processor", JSON.stringify(message));
     }
     publishMessage(channel, message) {
+        console.log("publishing message to channel", channel);
         this.client.publish(channel, JSON.stringify(message));
     }
     sendToApi(clientId, message) {

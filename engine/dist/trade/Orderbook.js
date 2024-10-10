@@ -47,14 +47,17 @@ class Orderbook {
             if (!(executedQty == order.quantity)) {
                 this.bids.push(order);
                 const ind = toSentAsk.findIndex(x => x[0] == order.price.toString());
+                console.log(toSentAsk);
                 if (ind !== -1) {
                     toSentAsk[ind][1] = (parseFloat(toSentAsk[ind][1]) + (order.quantity - executedQty)).toString();
                 }
+                console.log(toSentAsk);
                 if (!this.bidsObj[order.price]) {
                     this.bidsObj[order.price] = 0;
                 }
                 this.bidsObj[order.price] += order.quantity - executedQty;
-                b.push([order.price.toString(), (order.quantity - executedQty).toString()]);
+                b.push([order.price.toString(), this.bidsObj[order.price].toString()]);
+                console.log(b);
             }
             this.currentPrice = parseFloat((_a = Fills[Fills.length - 1]) === null || _a === void 0 ? void 0 : _a.price) || this.currentPrice;
             RedisManager_1.RedisManager.getInstance().publishMessage(`depth.${this.baseAsset}_USDC`, {
@@ -76,14 +79,12 @@ class Orderbook {
             if (!(executedQty == order.quantity)) {
                 this.asks.push(order);
                 const ind = toSentBid.findIndex(x => x[0] == order.price.toString());
-                if (ind !== -1) {
-                    toSentBid[ind][1] = (parseFloat(toSentBid[ind][1]) + (order.quantity - executedQty)).toString();
-                }
                 if (!this.asksObj[order.price]) {
                     this.asksObj[order.price] = 0;
                 }
                 this.asksObj[order.price] += order.quantity - order.filled;
-                a.push([order.price.toString(), (order.quantity - executedQty).toString()]);
+                a.push([order.price.toString(), this.asksObj[order.price].toString()]);
+                console.log(a);
             }
             this.currentPrice = parseFloat((_b = Fills[Fills.length - 1]) === null || _b === void 0 ? void 0 : _b.price) || this.currentPrice;
             RedisManager_1.RedisManager.getInstance().publishMessage(`depth.${this.baseAsset}_USDC`, {

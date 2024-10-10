@@ -156,7 +156,24 @@ class Engine {
                 try {
                     const userId = message.data.userId;
                     const amount = message.data.amount;
-                    this.onRamp(userId, amount);
+                    const currencyBalance = this.onRamp(userId, amount);
+                    if (currencyBalance === null) {
+                        RedisManager_1.RedisManager.getInstance().sendToApi(clientId, {
+                            type: "RAMP",
+                            payload: {
+                                status: "FAILURE",
+                                balance: null
+                            }
+                        });
+                    }
+                    console.log("Ramp successfull");
+                    RedisManager_1.RedisManager.getInstance().sendToApi(clientId, {
+                        type: "RAMP",
+                        payload: {
+                            status: "SUCCESS",
+                            balance: currencyBalance
+                        }
+                    });
                 }
                 catch (err) {
                     RedisManager_1.RedisManager.getInstance().sendToApi(clientId, {
@@ -192,6 +209,46 @@ class Engine {
                             message: "Error occured while fetching depth",
                             error: err
                         }
+                    });
+                }
+            case toApi_1.GET_BALANCE:
+                try {
+                    if ('userId' in message.data) {
+                        const userId = message.data.userId;
+                        let usersBalance = this.balances.get(userId);
+                        if (!usersBalance) {
+                            this.setBaseBalances(message.data.userId);
+                            usersBalance = this.balances.get(userId);
+                        }
+                        const returnBalance = {};
+                        if (usersBalance) {
+                            Object.keys(usersBalance).forEach(key => {
+                                const balance = {
+                                    available: usersBalance[key].available.toString(),
+                                    locked: usersBalance[key].locked.toString()
+                                };
+                                returnBalance[key] = balance;
+                            });
+                        }
+                        if (returnBalance) {
+                            console.log("returningin", returnBalance);
+                            return RedisManager_1.RedisManager.getInstance().sendToApi(clientId, {
+                                type: "BALANCE",
+                                payload: returnBalance
+                            });
+                        }
+                        else {
+                            throw new Error("Invalid user balance structure");
+                        }
+                    }
+                    else {
+                        throw new Error("No userId provided");
+                    }
+                }
+                catch (err) {
+                    return RedisManager_1.RedisManager.getInstance().sendToApi(clientId, {
+                        type: "BALANCE",
+                        payload: {}
                     });
                 }
         }
@@ -327,7 +384,7 @@ class Engine {
         }
     }
     onRamp(userId, amount) {
-        const userBalance = this.balances.get(userId);
+        let userBalance = this.balances.get(userId);
         if (!userBalance) {
             this.balances.set(userId, {
                 BASE_CURRENCY: {
@@ -335,11 +392,16 @@ class Engine {
                     locked: 0
                 }
             });
-            userBalance[Orderbook_1.BASE_CURRENCY].available += Number(amount);
+            userBalance = this.balances.get(userId);
         }
+        if (!userBalance) {
+            return null;
+        }
+        userBalance[Orderbook_1.BASE_CURRENCY].available += Number(amount);
+        return userBalance[Orderbook_1.BASE_CURRENCY].available.toString();
     }
-    setBaseBalances() {
-        this.balances.set("1", {
+    setBaseBalances(userId) {
+        this.balances.set(userId, {
             [Orderbook_1.BASE_CURRENCY]: {
                 available: 10000000,
                 locked: 0
@@ -359,48 +421,8 @@ class Engine {
             "UNI": {
                 available: 10000000,
                 locked: 0
-            }
-        });
-        this.balances.set("2", {
-            [Orderbook_1.BASE_CURRENCY]: {
-                available: 10000000,
-                locked: 0
             },
-            "BTC": {
-                available: 10000000,
-                locked: 0
-            },
-            "SOL": {
-                available: 10000000,
-                locked: 0
-            },
-            "ETH": {
-                available: 10000000,
-                locked: 0
-            },
-            "UNI": {
-                available: 10000000,
-                locked: 0
-            }
-        });
-        this.balances.set("5", {
-            [Orderbook_1.BASE_CURRENCY]: {
-                available: 10000000,
-                locked: 0
-            },
-            "BTC": {
-                available: 10000000,
-                locked: 0
-            },
-            "SOL": {
-                available: 10000000,
-                locked: 0
-            },
-            "ETH": {
-                available: 10000000,
-                locked: 0
-            },
-            "UNI": {
+            "HNT": {
                 available: 10000000,
                 locked: 0
             }

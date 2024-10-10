@@ -1,9 +1,11 @@
 import { response, Router } from "express";
 import { pgClient } from "..";
+import { symbolName } from "typescript";
 
 export const tickerRouter = Router()
 
 tickerRouter.get('/', async (req, res)=>{
+
     const {symbol: market} = req.query as {symbol?: string};
 
    try {
@@ -25,6 +27,11 @@ tickerRouter.get('/', async (req, res)=>{
  
      const response = await pgClient.query(query)
  
+    console.log("request for ticker from ", market)
+
+    console.log(response.rows[0])
+
+
      res.json({data: response.rows[0]})
    } catch (error) {
     console.log(error)

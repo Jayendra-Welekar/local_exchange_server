@@ -10,6 +10,22 @@
           "filled": 0,
           "side": "buy",
           "userId": "1"
+        },
+        {
+          "price": 139,
+          "quantity": 4,
+          "orderId": "ryrmk5wr82bd4p1f0j31m",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 142,
+          "quantity": 5,
+          "orderId": "4nvju7ek4sil1rhyxvxgsk",
+          "filled": 3,
+          "side": "buy",
+          "userId": "1"
         }
       ],
       "asks": [
@@ -38,53 +54,278 @@
           "userId": "2"
         },
         {
-          "price": 138,
-          "quantity": 5,
-          "orderId": "9vz8u9nf2ge6pmmzfbqujm",
-          "filled": 0,
-          "side": "sell",
-          "userId": "1"
-        },
-        {
           "price": 140,
           "quantity": 5,
           "orderId": "uyn8yk9hojvw23f4a69g",
           "filled": 0,
           "side": "sell",
           "userId": "1"
+        }
+      ],
+      "lastTradeId": 12,
+      "currentPrice": 140
+    },
+    {
+      "baseAsset": "BTC",
+      "bids": [
+        {
+          "price": 62600,
+          "quantity": 4,
+          "orderId": "x2ievo9tjbhfys2o3c6tm",
+          "filled": 0,
+          "side": "buy",
+          "userId": "2"
         },
         {
-          "price": 140,
+          "price": 62589,
+          "quantity": 3,
+          "orderId": "jomw6yyxbwswy72z97ehdp",
+          "filled": 1,
+          "side": "buy",
+          "userId": "1"
+        }
+      ],
+      "asks": [
+        {
+          "price": 62634,
           "quantity": 5,
-          "orderId": "n9xhj0hjtjisalfmf3iml",
+          "orderId": "b7vz572cl7v1c0jtx7p1u8",
+          "filled": 0,
+          "side": "sell",
+          "userId": "1"
+        },
+        {
+          "price": 62614,
+          "quantity": 3,
+          "orderId": "tgjcyfcprseedxew8oee",
           "filled": 2,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 62599,
+          "quantity": 1,
+          "orderId": "lvilj05zgvftnlisbunmm",
+          "filled": 0,
           "side": "sell",
           "userId": "2"
         }
       ],
-      "lastTradeId": 9,
-      "currentPrice": 140.5
+      "lastTradeId": 2,
+      "currentPrice": 62589
+    },
+    {
+      "baseAsset": "ETH",
+      "bids": [
+        {
+          "price": 2430,
+          "quantity": 2,
+          "orderId": "89heepfy0nfdbjvrxybkn8",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 2432,
+          "quantity": 5,
+          "orderId": "lvjtzzthg2a9r7zy4y7td",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 2432,
+          "quantity": 3,
+          "orderId": "zo8vn1clf4xlgdtlta0kl",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        }
+      ],
+      "asks": [
+        {
+          "price": 2434,
+          "quantity": 2,
+          "orderId": "2m4nxwqqr6tjjvh8i2z27",
+          "filled": 1,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 2438,
+          "quantity": 10,
+          "orderId": "dzkqgxvuu9ohno58dyhlth",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 2435,
+          "quantity": 2,
+          "orderId": "btu5x1m4xhtotgopyrcpzg",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        }
+      ],
+      "lastTradeId": 2,
+      "currentPrice": 2434
+    },
+    {
+      "baseAsset": "UNI",
+      "bids": [
+        {
+          "price": 7.15,
+          "quantity": 2,
+          "orderId": "m5klie42bbcasndw6xwy5",
+          "filled": 1,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 7.2,
+          "quantity": 3,
+          "orderId": "nle18js8s3j5n5avzr3ist",
+          "filled": 2,
+          "side": "buy",
+          "userId": "1"
+        }
+      ],
+      "asks": [
+        {
+          "price": 7.35,
+          "quantity": 2,
+          "orderId": "ikw46hqbzbgol3om3p5jh",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 7.33,
+          "quantity": 2,
+          "orderId": "5jfbo8klo1qiow6ydwxbw8",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 7.38,
+          "quantity": 2,
+          "orderId": "0lm6bstuhphcy4xc5wvuw",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 7.4,
+          "quantity": 2,
+          "orderId": "99i6bagm1qoesl2l3ux7m5",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        }
+      ],
+      "lastTradeId": 6,
+      "currentPrice": 7.15
+    },
+    {
+      "baseAsset": "LINK",
+      "bids": [
+        {
+          "price": 11.2,
+          "quantity": 4,
+          "orderId": "fp7ekg05yje93q7wdonb6n",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 11.12,
+          "quantity": 3,
+          "orderId": "3j08hoqym16or38434mho",
+          "filled": 0,
+          "side": "buy",
+          "userId": "1"
+        },
+        {
+          "price": 11.23,
+          "quantity": 5,
+          "orderId": "mohda5mp1ok3k8tgrfq4x8",
+          "filled": 2,
+          "side": "buy",
+          "userId": "1"
+        }
+      ],
+      "asks": [
+        {
+          "price": 11.4,
+          "quantity": 2,
+          "orderId": "4b19sd2yk9yd4c8yn2rhm",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 11.34,
+          "quantity": 2,
+          "orderId": "fqew8w90i1daoxq8par6a8",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 11.33,
+          "quantity": 2,
+          "orderId": "yl69cs7ip97fcl5hvov48t",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 11.41,
+          "quantity": 4,
+          "orderId": "9lhz75puyvb4c0p3nkr423",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        },
+        {
+          "price": 11.36,
+          "quantity": 3,
+          "orderId": "j1xp0wncdrv0d7h922gpb",
+          "filled": 0,
+          "side": "sell",
+          "userId": "2"
+        }
+      ],
+      "lastTradeId": 11,
+      "currentPrice": 11.23
     }
   ],
   "balances": [
     [
       "1",
       {
-        "USDC": { "available": 9998753, "locked": -683 },
-        "BTC": { "available": 10000000, "locked": 0 },
-        "SOL": { "available": 10000009, "locked": 5 },
-        "ETH": { "available": 10000000, "locked": 0 },
-        "UNI": { "available": 10000000, "locked": 0 }
+        "USDC": {
+          "available": 9648101.269999998,
+          "locked": 150016.31999999998
+        },
+        "BTC": { "available": 9999998, "locked": 5 },
+        "SOL": { "available": 10000012, "locked": 0 },
+        "ETH": { "available": 10000005, "locked": 0 },
+        "UNI": { "available": 10000009, "locked": 0 },
+        "LINK": { "available": 10000017, "locked": 0 }
       }
     ],
     [
       "2",
       {
-        "USDC": { "available": 10001930, "locked": 0 },
-        "BTC": { "available": 10000000, "locked": 0 },
-        "SOL": { "available": 9999982, "locked": 4 },
-        "ETH": { "available": 10000000, "locked": 0 },
-        "UNI": { "available": 10000000, "locked": 0 }
+        "USDC": { "available": 9951477.410000004, "locked": 250405 },
+        "BTC": { "available": 9999995, "locked": 2 },
+        "SOL": { "available": 9999987, "locked": 1 },
+        "ETH": { "available": 9999982, "locked": 13 },
+        "UNI": { "available": 9999983, "locked": 8 },
+        "LINK": { "available": 9999961, "locked": 22 }
       }
     ],
     [
@@ -94,7 +335,19 @@
         "BTC": { "available": 10000000, "locked": 0 },
         "SOL": { "available": 10000000, "locked": 0 },
         "ETH": { "available": 10000000, "locked": 0 },
-        "UNI": { "available": 10000000, "locked": 0 }
+        "UNI": { "available": 10000000, "locked": 0 },
+        "LINK": { "available": 10000000, "locked": 0 }
+      }
+    ],
+    [
+      "111643307326981211990",
+      {
+        "USDC": { "available": 10000000, "locked": 0 },
+        "BTC": { "available": 10000000, "locked": 0 },
+        "SOL": { "available": 10000000, "locked": 0 },
+        "ETH": { "available": 10000000, "locked": 0 },
+        "UNI": { "available": 10000000, "locked": 0 },
+        "HNT": { "available": 10000000, "locked": 0 }
       }
     ]
   ]

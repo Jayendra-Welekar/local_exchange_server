@@ -9,6 +9,7 @@ class SubscriptionManager {
         this.reverseSubscription = new Map();
         this.redisCallbackHandler = (message, channel) => {
             var _a;
+            console.log(`Received message on channel ${channel}: ${message}`);
             const parsedMessage = JSON.parse(message);
             (_a = this.reverseSubscription.get(channel)) === null || _a === void 0 ? void 0 : _a.forEach(user => { var _a; return (_a = Usermanager_1.UserManager.getInstance().getUser(user)) === null || _a === void 0 ? void 0 : _a.emit(parsedMessage); });
         };

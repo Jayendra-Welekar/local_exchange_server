@@ -7,6 +7,7 @@ import { orderRouter } from "./routes/order"
 import { depthRouter } from "./routes/depth"
 import { tickerRouter } from "./routes/ticker"
 import { klineRouter } from "./routes/kline"
+import { balanceRouter } from "./routes/balance"
 
 export const pgClient = new Client({
     user: "your_user",
@@ -27,6 +28,7 @@ app.use('/api/v1/trade', tradeRouter)
 app.use('/api/v1/depth', depthRouter)
 app.use('/api/v1/ticker', tickerRouter)
 app.use('/api/v1/kline', klineRouter)
+app.use('/api/v1/balance', balanceRouter)
 
 app.listen(PORT, ()=>{
     console.log("Listening on port: ", PORT)

@@ -27,7 +27,7 @@ orderRouter.post('/', async (req, res)=>{
 })
 
 orderRouter.delete('/', async (req, res)=>{
-    const {market, orderId} = req.body
+    const {market, orderId} = req.query as {market: string, orderId: string}
 
    try {
      const response = await RedisManager.getInstance().sendAndAwait({
@@ -46,7 +46,7 @@ orderRouter.delete('/', async (req, res)=>{
 })
 
 orderRouter.get('/open', async (req, res)=>{
-    const {market, userId} = req.body
+    const {market, userId} = req.query as {market: string, userId: string}
 
     try {
         const response = await RedisManager.getInstance().sendAndAwait({
@@ -56,7 +56,7 @@ orderRouter.get('/open', async (req, res)=>{
                 userId
             }
         })
-    
+        console.log("response: ", response)
         res.json(response.payload)
     } catch (error) {
         console.log(error)

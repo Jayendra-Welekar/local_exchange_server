@@ -29,6 +29,7 @@ export class User {
 
 
     emit(message: OutgoingMessage){
+        console.log("Emmiting message: ", message)
         this.ws.send(JSON.stringify(message))
     }
 

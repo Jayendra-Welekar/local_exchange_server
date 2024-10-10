@@ -20,6 +20,7 @@ class User {
         }
     }
     emit(message) {
+        console.log("Emmiting message: ", message);
         this.ws.send(JSON.stringify(message));
     }
     addListeners() {

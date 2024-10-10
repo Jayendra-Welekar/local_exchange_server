@@ -26,12 +26,6 @@ exports.tradeRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fun
         FROM ${market.split('_')[0]}_prices ORDER BY time DESC LIMIT 100`;
         const result = yield __1.pgClient.query(query);
         console.log(result.rows[0]);
-        // "id": number,
-        // "isBuyerMaker": boolean,
-        // "price": string,
-        // "quantity": string,
-        // "quoteQuantity": string,
-        // "timestamp": number
         res.json({ data: result.rows });
     }
     catch (error) {

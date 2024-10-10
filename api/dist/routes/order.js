@@ -35,7 +35,7 @@ exports.orderRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 }));
 exports.orderRouter.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { market, orderId } = req.body;
+    const { market, orderId } = req.query;
     try {
         const response = yield RedisManager_1.RedisManager.getInstance().sendAndAwait({
             type: types_1.CANCEL_ORDER,
@@ -52,7 +52,7 @@ exports.orderRouter.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 }));
 exports.orderRouter.get('/open', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { market, userId } = req.body;
+    const { market, userId } = req.query;
     try {
         const response = yield RedisManager_1.RedisManager.getInstance().sendAndAwait({
             type: types_1.GET_OPEN_ORDERS,
@@ -61,6 +61,7 @@ exports.orderRouter.get('/open', (req, res) => __awaiter(void 0, void 0, void 0,
                 userId
             }
         });
+        console.log("response: ", response);
         res.json(response.payload);
     }
     catch (error) {

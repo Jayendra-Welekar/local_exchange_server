@@ -32,6 +32,8 @@ exports.tickerRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
  WHERE
      time >= NOW() - INTERVAL '24 hours';`;
         const response = yield __1.pgClient.query(query);
+        console.log("request for ticker from ", market);
+        console.log(response.rows[0]);
         res.json({ data: response.rows[0] });
     }
     catch (error) {

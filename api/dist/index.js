@@ -12,6 +12,7 @@ const order_1 = require("./routes/order");
 const depth_1 = require("./routes/depth");
 const ticker_1 = require("./routes/ticker");
 const kline_1 = require("./routes/kline");
+const balance_1 = require("./routes/balance");
 exports.pgClient = new pg_1.Client({
     user: "your_user",
     host: 'localhost',
@@ -29,6 +30,7 @@ app.use('/api/v1/trade', trades_1.tradeRouter);
 app.use('/api/v1/depth', depth_1.depthRouter);
 app.use('/api/v1/ticker', ticker_1.tickerRouter);
 app.use('/api/v1/kline', kline_1.klineRouter);
+app.use('/api/v1/balance', balance_1.balanceRouter);
 app.listen(PORT, () => {
     console.log("Listening on port: ", PORT);
 });

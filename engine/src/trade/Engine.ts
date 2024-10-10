@@ -2,12 +2,13 @@ import { userInfo } from "os";
 import { RedisManager } from "../RedisManager";
 import { ORDER_ADD, ORDER_UPDATE, TRADE_ADDED } from "../types";
 import { MessageFromApi } from "../types/fromApi";
-import { CANCEL_ORDER, CREATE_ORDER, GET_DEPTH, GET_OPEN_ORDERS, ON_RAMP } from "../types/toApi";
+import { CANCEL_ORDER, CREATE_ORDER, GET_BALANCE, GET_DEPTH, GET_OPEN_ORDERS, ON_RAMP } from "../types/toApi";
 import { BASE_CURRENCY, Fill, Order, Orderbook } from "./Orderbook";
 import fs from "fs"
+import { availableMemory } from "process";
 require('dotenv').config()
 
-interface UserBalance{
+export interface UserBalance{
     [key: string]: {
         available: number,
         locked: number
@@ -118,6 +119,7 @@ export class Engine {
                                 executedQty: order.filled*order.price
                             }
                         })
+
                     } else {
 
                         const price = orderbook.cancelAsk(order)
@@ -125,6 +127,8 @@ export class Engine {
 
                         this.balances.get(order.userId)![quoteAsset].available += leftQuantity
                         this.balances.get(order.userId)![quoteAsset].locked -= leftQuantity
+
+
 
                         RedisManager.getInstance().sendToApi(clientId, {
                             type: "ORDER_CANCELED",
@@ -134,7 +138,10 @@ export class Engine {
                                 executedQty: order.filled
                             }
                         })
+
                     }
+
+                    
 
                 } catch(err){
                     RedisManager.getInstance().sendToApi(clientId, {
@@ -182,7 +189,24 @@ export class Engine {
                 try {
                     const userId = message.data.userId
                     const amount = message.data.amount
-                    this.onRamp(userId, amount)
+                    const currencyBalance =  this.onRamp(userId, amount)
+                    if(currencyBalance === null){
+                      RedisManager.getInstance().sendToApi(clientId, {
+                        type: "RAMP",
+                        payload: {
+                            status: "FAILURE",
+                            balance: null
+                        }
+                      }  )
+                    }
+                    console.log("Ramp successfull")
+                    RedisManager.getInstance().sendToApi(clientId, {
+                        type: "RAMP",
+                        payload: {
+                            status: "SUCCESS",
+                            balance : currencyBalance
+                        }
+                    }) 
                 } catch (err) {
                     RedisManager.getInstance().sendToApi(clientId, {
                         type: "ERROR",
@@ -217,6 +241,52 @@ export class Engine {
                             message: "Error occured while fetching depth",
                             error: err as Error
                         }
+                    })
+                }
+            case GET_BALANCE: 
+                try{
+                    if('userId' in message.data){
+                        const userId = message.data.userId
+                        let usersBalance = this.balances.get(userId)
+                        if(!usersBalance){
+                            this.setBaseBalances(message.data.userId)
+                            usersBalance  = this.balances.get(userId) 
+                        }
+
+                        const returnBalance : {
+                            [key: string]: {
+                                available: string,
+                                locked: string
+                            }
+                        } = {}
+                        
+                        if(usersBalance){
+                            Object.keys(usersBalance).forEach(key => {
+                                const balance = {
+                                    available: usersBalance[key].available.toString(),
+                                    locked: usersBalance[key].locked.toString()
+                                }
+                                returnBalance[key] = balance
+                            });
+                        }
+
+                        if (returnBalance) {
+                            console.log("returningin", returnBalance)
+                            return RedisManager.getInstance().sendToApi(clientId, {
+                                type: "BALANCE",
+                                payload: returnBalance
+                            });
+                        } else {
+                            throw new Error("Invalid user balance structure");
+                        }
+
+                    } else {
+                        throw new Error("No userId provided")
+                    }
+                } catch(err){
+                    return RedisManager.getInstance().sendToApi(clientId, {
+                        type: "BALANCE",
+                        payload: {}
                     })
                 }
         }
@@ -370,7 +440,7 @@ export class Engine {
 
     onRamp(userId: string, amount: string){
   
-            const userBalance = this.balances.get(userId)
+            let userBalance = this.balances.get(userId)
             if(!userBalance){
                 this.balances.set(userId, {
                     BASE_CURRENCY : {
@@ -378,13 +448,17 @@ export class Engine {
                         locked: 0
                     }
                 })
-                userBalance![BASE_CURRENCY].available += Number(amount)
+                userBalance = this.balances.get(userId)
             }
-        
+            if(!userBalance){
+                return null
+            }
+            userBalance![BASE_CURRENCY].available += Number(amount)
+            return userBalance![BASE_CURRENCY].available.toString()
     }
 
-    setBaseBalances() {
-        this.balances.set("1", {
+    setBaseBalances(userId: string) {
+        this.balances.set(userId, {
             [BASE_CURRENCY]: {
                 available: 10000000,
                 locked: 0
@@ -404,50 +478,8 @@ export class Engine {
             "UNI": {
                 available: 10000000,
                 locked: 0
-            }
-        });
-
-        this.balances.set("2", {
-            [BASE_CURRENCY]: {
-                available: 10000000,
-                locked: 0
             },
-            "BTC": {
-                available: 10000000,
-                locked: 0
-            },
-            "SOL": {
-                available: 10000000,
-                locked: 0
-            },
-            "ETH": {
-                available: 10000000,
-                locked: 0
-            },
-            "UNI": {
-                available: 10000000,
-                locked: 0
-            }
-        });
-
-        this.balances.set("5", {
-            [BASE_CURRENCY]: {
-                available: 10000000,
-                locked: 0
-            },
-            "BTC": {
-                available: 10000000,
-                locked: 0
-            },
-            "SOL": {
-                available: 10000000,
-                locked: 0
-            },
-            "ETH": {
-                available: 10000000,
-                locked: 0
-            },
-            "UNI": {
+            "HNT": {
                 available: 10000000,
                 locked: 0
             }
