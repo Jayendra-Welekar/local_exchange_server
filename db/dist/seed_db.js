@@ -76,9 +76,6 @@ function initializeDB(market) {
             quantity DOUBLE PRECISION,
             side VARCHAR(10)
         );
-
-        
-        
     `);
         console.log("Database initilised successfully");
     });

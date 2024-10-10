@@ -78,16 +78,12 @@ export class Orderbook{
             if(!(executedQty == order.quantity)){
                 this.bids.push(order)
                 const ind = toSentAsk.findIndex(x => x[0] == order.price.toString());
-                console.log(toSentAsk)
-                if(ind !== -1){
-                    toSentAsk[ind][1] = (parseFloat(toSentAsk[ind][1]) + (order.quantity - executedQty)).toString()
-                } 
-                console.log(toSentAsk)
                 if(!this.bidsObj[order.price]){
                     this.bidsObj[order.price] = 0
                 }
                 this.bidsObj[order.price] += order.quantity - executedQty
                 b.push([order.price.toString(), this.bidsObj[order.price].toString()])
+                console.log(toSentAsk)
                 console.log(b)
             }
             this.currentPrice = parseFloat(Fills[Fills.length-1]?.price) || this.currentPrice;
@@ -155,9 +151,11 @@ export class Orderbook{
                     this.asksObj[this.asks[i].price] -= filledQty
                     askmap.set(this.asks[i].price.toString(), this.asksObj[this.asks[i].price].toString());
                     if(this.asksObj[this.asks[i].price] == 0){
+                        console.log("Befor delete", this.asksObj)
                         delete this.asksObj[this.asks[i].price]
+                        console.log("After delete", this.asksObj)
                     }
-                }
+                }   
 
                 fills.push({
                     price: this.asks[i].price.toString(),
@@ -238,7 +236,7 @@ export class Orderbook{
         for(const price in this.asksObj){
             asks.push([price.toString(), this.asksObj[price].toString()])
         }
-
+        console.log("Get Depth")
         return {
             lastTradeId: this.lastTradeId,
             bids,

@@ -12,7 +12,8 @@ async function initializeDB(market: string){
             time  TIMESTAMP WITH TIME ZONE NOT NULL,
             price DOUBLE PRECISION,
             volume DOUBLE PRECISION,
-            currency_code VARCHAR(10)
+            currency_code VARCHAR(10),
+            isbuyermaker BOOLEAN
         );
 
         SELECT create_hypertable('${market.split('_')[0]}_prices', 'time', 'price', 2);
@@ -71,9 +72,6 @@ async function initializeDB(market: string){
             quantity DOUBLE PRECISION,
             side VARCHAR(10)
         );
-
-        
-        
     `)
 
 
